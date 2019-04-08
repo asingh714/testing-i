@@ -56,5 +56,7 @@ function fail(item) {
 }
 
 function repair(item) {
-  return item; 
+  let repairedItem = {...item}
+  repairedItem.durability = 100 
+  return repairedItem;
 }
