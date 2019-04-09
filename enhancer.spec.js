@@ -66,4 +66,48 @@ describe("enhancer.js", () => {
       expect(actual2.durability).toBe(100);
     });
   });
+
+  describe("fail()", () => {
+    const item1 = {
+      originalName: "Axe",
+      name: "Axe",
+      type: "weapon",
+      durability: 83,
+      enhancement: 20
+    };
+    const item2 = {
+      originalName: "Axe",
+      name: "Axe",
+      type: "weapon",
+      durability: 83,
+      enhancement: 17
+    };
+    it("should change the name if enhancement is greater than 16", () => {
+      expect(enhancer.fail(item1).name).toBe('["TET"] Axe');
+      expect(enhancer.fail(item2).name).toBe('["PRI"] Axe');
+    });
+
+    const item3 = {
+      originalName: "Axe",
+      name: "Axe",
+      type: "weapon",
+      durability: 83,
+      enhancement: 11
+    };
+    const item4 = {
+      originalName: "Axe",
+      name: "Axe",
+      type: "weapon",
+      durability: 83,
+      enhancement: 115
+    };
+
+    it("should decrease durability by 5 if enhancement is less than 14", () => {
+      expect(enhancer.fail(item3).durability).toBe(78);
+    });
+
+    it("should decrease durability by 10 if enhancement is greater than or equal to 14", () => {
+      expect(enhancer.fail(item4).durability).toBe(73);
+    });
+  });
 });
